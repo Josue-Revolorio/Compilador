@@ -30,6 +30,11 @@ import javax.servlet.http.Part;
 public class UploadBean {
     
     private Part file;
+    private String fileContent ;
+    
+        
+    public UploadBean() {
+    }
 
     public String getFileContent() {
         return fileContent;
@@ -37,11 +42,6 @@ public class UploadBean {
 
     public void setFileContent(String fileContent) {
         this.fileContent = fileContent;
-    }
-    private String fileContent ;
-    
-    
-    public UploadBean() {
     }
         
     public Part getFile() {
