@@ -1,0 +1,8 @@
+NB|GYT
+NC|123
+NCH|1234
+LF|Guatemala 12 Enero 2018
+P | Luis Castillo
+MC|100.25
+LT|Docientos Exactos
+FC | Francisco Huit

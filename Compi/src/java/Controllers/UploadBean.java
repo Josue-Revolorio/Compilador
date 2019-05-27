@@ -5,18 +5,16 @@
  */
 package Controllers;
 
+import Model.Variables;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Scanner;
+import java.io.InputStreamReader;
 import javax.inject.Named;
 
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.servlet.http.Part;
 
 /**
  *
@@ -27,37 +25,43 @@ import javax.servlet.http.Part;
 @ManagedBean
 @ViewScoped
 
-public class UploadBean {
+public class UploadBean extends Variables {
     
-    private Part file;
-    private String fileContent ;
+    String linea;
+    String[] registro = new String[2];
     
-        
-    public UploadBean() {
-    }
-
-    public String getFileContent() {
-        return fileContent;
-    }
-
-    public void setFileContent(String fileContent) {
-        this.fileContent = fileContent;
-    }
-        
-    public Part getFile() {
-        return file;
-    }
-
-    public void setFile(Part file) {
-        this.file = file;
-    }
     
     public void upload() throws IOException {
-       Scanner s = new Scanner(file.getInputStream());
-       fileContent = s.useDelimiter("\\A").next();
-       s.close();
-       System.out.println(fileContent);
-       Files.write(Paths.get(file.getSubmittedFileName()), fileContent.getBytes(), StandardOpenOption.CREATE);
+     AnalisisLexico();
+     AnalisisSitactico();
+     AnalisisSemantico();
+    }  
+    
+    public void AnalisisLexico() throws IOException{
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        
+        while((linea = leer.readLine())!= null){
+            registro = linea.split("\\|");
+            lexico += registro[0] + " | " + registro[1] +"\n";
+        }
     }
-}
+    
+    public void AnalisisSitactico() throws IOException{
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        
+        while((linea = leer.readLine())!= null){
+            registro = linea.split("\\|");
+            Sintactico += registro[0] + " | " + registro[1] +"\n";
+        }
+    }
+    
+    public void AnalisisSemantico() throws IOException{
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        
+        while((linea = leer.readLine())!= null){
+            registro = linea.split("\\|");
+            semantico += registro[0] + " | " + registro[1] +"\n";
+        }
+    }
+} 
     
